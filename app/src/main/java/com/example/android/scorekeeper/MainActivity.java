@@ -17,6 +17,7 @@
 package com.example.android.scorekeeper;
 
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -80,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
 
                 SharedPreferences.Editor SharePreferenceEdit = mPreferences.edit();
                 SharePreferenceEdit.clear();
-                SharePreferenceEdit.apply();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+                    SharePreferenceEdit.apply();
+                }
             }
         });
 
@@ -181,7 +184,9 @@ public class MainActivity extends AppCompatActivity {
                         (AppCompatDelegate.MODE_NIGHT_YES);
             }
             // Recreate the activity for the theme change to take effect.
-            recreate();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                recreate();
+            }
         }
         return true;
     }
@@ -206,6 +211,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor SharePreferenceEditor = mPreferences.edit();
         SharePreferenceEditor.putInt(STATE_SCORE_1, mScore1);
         SharePreferenceEditor.putInt(STATE_SCORE_2, mScore2);
-        SharePreferenceEditor.apply();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            SharePreferenceEditor.apply();
+        }
     }
 }
